@@ -12,7 +12,15 @@ Enjoy!
 ### How to use
 - Create your PhoneGap application
 - Copy the .h and .m files from /objc to your project's Classes folder in xcode
+- Add the plugin to your config.xml:
+
+        <feature name="PgPDF">
+            <param name="ios-package" value="PgPDF"/>
+        </feature>
+
 - Copy pgPDF.js from /javascript to your project's /www folder
-- Add the script to your index.html: `<script src="pgPDF.js"></script>`
+- Add the script to your index.html:
+
+        <script src="pgPDF.js"></script>
 
 That should do it! I'll add some exampley goodness soon.
