@@ -159,6 +159,27 @@ var pgPDF = {
 	},
 
 	/**
+	 * Draw a rectangle with rounded corners and optional fill
+	 *
+	 * @param x1 The x-coordinate of the upper-left corner of the rect in inches
+	 * @param y1 The y-coordinate of the upper-left corner of the rect in inches
+	 * @param width The width of the rect in inches
+	 * @param width The height of the rect in inches
+	 * @param strokeWidth The width of the line stroke around the rect in points
+	 * @param filled Whether to fill the rectangle (use setFillColor to set a color)
+	 * @param joinStyle The style of box corners ("bevel", "round", "miter")
+	 */
+	drawRoundRect: function(x1, y1, width, height, radius, strokeWidth, filled) {
+		cordova.exec(
+			function(retVal) { console.log(retVal); },
+			function(err) { console.log(err); },
+			"PgPDF",
+			"drawRoundRect",
+			[ x1, y1, width, height, radius, strokeWidth, filled ]
+		);
+	},
+
+	/**
 	 * Draw an ellipse bounded by the specified coordinates with optional fill
 	 *
 	 * The function defines a rectangle and then draws an ellipse that inscribes

@@ -177,9 +177,10 @@ UIFont *currentFont = nil;
     if([cornerStyleString isEqualToString:@"miter"]) { cornerStyle = kCGLineJoinMiter; }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGRect rect = CGRectMake(left, top, width, height);
     CGContextSetLineWidth(context, lineWidth);
     CGContextSetLineJoin(context, cornerStyle);
+    
+    CGRect rect = CGRectMake(left, top, width, height);
     if(isFilled) { CGContextFillRect(context, rect); }
     CGContextStrokeRect(context, rect);
 }
@@ -193,13 +194,25 @@ UIFont *currentFont = nil;
     float radius = [[command.arguments objectAtIndex:4] floatValue] * dpi;
     float lineWidth = [[command.arguments objectAtIndex:5] floatValue]; // width in points, not inches
     bool  isFilled  = [[command.arguments objectAtIndex:6] boolValue];
-    NSString* cornerStyleString = [command.arguments objectAtIndex:6];
-
-    enum CGLineJoin cornerStyle = kCGLineJoinBevel;
-    if([cornerStyleString isEqualToString:@"round"]) { cornerStyle = kCGLineJoinRound; }
-    if([cornerStyleString isEqualToString:@"miter"]) { cornerStyle = kCGLineJoinMiter; }
-
-    // TODO: Rounded rectangle implementation
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineJoin(context, kCGLineJoinBevel);
+    CGContextSetLineWidth(context, lineWidth);
+    
+    CGContextAddArc(context, left + radius, top + radius, radius, M_PI, 1.5 * M_PI, 0);
+    CGContextAddArc(context, left + width - radius, top + radius, radius, 1.5 * M_PI, 2 * M_PI, 0);
+    CGContextAddArc(context, left + width - radius, top + height - radius, radius, 0, M_PI / 2, 0);
+    CGContextAddArc(context, left + radius, top + height - radius, radius, M_PI / 2, M_PI, 0);
+    CGContextClosePath(context);
+    CGContextStrokePath(context);
+    if(isFilled) {
+        CGContextAddArc(context, left + radius, top + radius, radius, M_PI, 1.5 * M_PI, 0);
+        CGContextAddArc(context, left + width - radius, top + radius, radius, 1.5 * M_PI, 2 * M_PI, 0);
+        CGContextAddArc(context, left + width - radius, top + height - radius, radius, 0, M_PI / 2, 0);
+        CGContextAddArc(context, left + radius, top + height - radius, radius, M_PI / 2, M_PI, 0);
+        CGContextClosePath(context);
+        CGContextFillPath(context);
+    }
 }
 
 - (void) drawEllipseInRect:(CDVInvokedUrlCommand*) command

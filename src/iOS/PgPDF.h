@@ -26,6 +26,7 @@
 - (void) drawTextInBox:(CDVInvokedUrlCommand*) command;
 - (void) drawLine:(CDVInvokedUrlCommand*) command;
 - (void) drawRect:(CDVInvokedUrlCommand*) command;
+- (void) drawRoundRect:(CDVInvokedUrlCommand*) command;
 - (void) drawEllipseInRect:(CDVInvokedUrlCommand*) command;
 - (void) drawImage:(CDVInvokedUrlCommand*) command;
 
