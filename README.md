@@ -3,9 +3,8 @@ pgpdf
 
 PhoneGap PDF Writer
 
-Juuuuuuust barely getting started. This is a plugin to write out PDF files from javascript code in a PhoneGap application. This only supports iOS for now.
-
-Enjoy!
+This is a plugin to write out PDF files from javascript code in a PhoneGap
+application. It only supports iOS for now.
 
 --
 
@@ -24,6 +23,8 @@ Enjoy!
         <script src="pgPDF.js"></script>
 
 That should do it! I'll add some exampley goodness soon.
+
+--
 
 ### Example Code
 	
