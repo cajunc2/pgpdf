@@ -23,12 +23,9 @@ UIFont *currentFont = nil;
 - (void) createDocument:(CDVInvokedUrlCommand*) command
 {
     NSString* pdfFileName = [command.arguments objectAtIndex:0];
-    float width  = [[command.arguments objectAtIndex:1] floatValue] * dpi;
-    float height = [[command.arguments objectAtIndex:2] floatValue] * dpi;
-    
+
     UIGraphicsBeginPDFContextToFile(pdfFileName, CGRectZero, nil);
-    UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, width, height), nil);
-    
+
     if(currentFont == nil) { currentFont = [UIFont systemFontOfSize:12]; }
 
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:pdfFileName];
