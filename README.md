@@ -22,7 +22,7 @@ application. It only supports iOS for now.
 
         <script src="pgPDF.js"></script>
 
-That should do it! I'll add some exampley goodness soon.
+That should do it!
 
 --
 
