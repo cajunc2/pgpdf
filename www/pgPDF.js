@@ -19,13 +19,6 @@
  */
 var pgPDF = {
 
-	/**
-	 * Creates a new PDF document and adds the first page. Defualts to
-	 * 8.5" x 11" in portrait orientation. The PDF will be written to a file
-	 * at the given loaction
-	 *
-	 * @param {string} fileLocation The target filename for the PDF file on the filesystem
-	 */
 	createDocument: function(fileLocation) {
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -36,12 +29,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Adds a page to the PDF document. Defaults to 8.5" x 11" in portrait orientation
-	 *
-	 * @param {number} [width=8.5] The width of the new page in inches
-	 * @param {number} [height=11] The height of the new page in inches
-	 */
 	addPage: function(width, height) {
 		width  = width || 8.5;
 		height = height || 11;
@@ -54,9 +41,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Closes the document, updating the file with the drawn contents
-	 */
 	closeDocument: function() {
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -67,14 +51,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Sets the working color for line strokes
-	 *
-	 * @param {number} red   The red component of the color (0-255)
-	 * @param {number} green The green component of the color (0-255)
-	 * @param {number} blue  The blue component of the color (0-255)
-	 * @param {number} [alpha=1] The opacity (alpha channel) of the color (0.0-1.0)
-	 */
 	setStrokeColor: function(red, green, blue, alpha) {
 		alpha = alpha || 1;
 
@@ -87,15 +63,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Sets the working color for shape fill or text drawing
-	 *
-	 * @param {number} red   The red component of the color (0-255)
-	 * @param {number} green The green component of the color (0-255)
-	 * @param {number} blue  The blue component of the color (0-255)
-	 * @param {number} [alpha=1] The opacity (alpha channel) of the color (0.0-1.0)
-	 * 
-	 */
 	setFillColor: function(red, green, blue, alpha) {
 		alpha = alpha || 1;
 		
@@ -108,11 +75,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Changes the font used for text drawing
-	 *
-	 * @param {string} fontName The name of the font to use
-	 */
 	setTextFont: function(fontName) {
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -123,11 +85,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Changes the font size used for text drawing
-	 *
-	 * @param {number} pointSize The size of the font to use (in points)
-	 */
 	setTextSize: function(pointSize) {
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -138,17 +95,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Draw a rectangle with optional fill and varied join styles supported
-	 *
-	 * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
-	 * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
-	 * @param {number} width The width of the rect in inches
-	 * @param {number} width The height of the rect in inches
-	 * @param {number} strokeWidth The width of the line stroke around the rect in points
-	 * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
-	 * @param {string} [joinStyle="bevel"] The style of box corners ("bevel", "round", "miter")
-	 */
 	drawRect: function(x1, y1, width, height, strokeWidth, filled, joinStyle) {
 		filled = !!filled; // sets to false if not specified
 		cordova.exec(
@@ -160,16 +106,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Draw a rectangle with rounded corners and optional fill
-	 *
-	 * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
-	 * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
-	 * @param {number} width The width of the rect in inches
-	 * @param {number} width The height of the rect in inches
-	 * @param {number} strokeWidth The width of the line stroke around the rect in points
-	 * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
-	 */
 	drawRoundRect: function(x1, y1, width, height, radius, strokeWidth, filled) {
 		filled = !!filled; // sets to false if not specified
 		cordova.exec(
@@ -181,22 +117,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Draw an ellipse bounded by the specified coordinates with optional fill
-	 *
-	 * The function defines a rectangle and then draws an ellipse that inscribes
-	 * that rectangle
-	 *
-	 * This method should be replaced by a method to draw an ellispe at any angle
-	 * in the future
-	 *
-	 * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
-	 * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
-	 * @param {number} width The width of the rect in inches
-	 * @param {number} width The height of the rect in inches
-	 * @param {number} strokeWidth The width of the line stroke around the ellipse in points
-	 * @param {boolean} [filled=false] Whether to fill the ellipse (use setFillColor to set a color)
-	 */
 	drawEllipseInRect: function(x1, y1, width, height, strokeWidth, filled) {
 		filled = !!filled; // sets to false if not specified
 		cordova.exec(
@@ -208,16 +128,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Draw a straight line segment between two points
-	 *
-	 * @param {number} startX X-coordinate of the starting point in inches
-	 * @param {number} startY Y-coordinate of the starting point in inches
-	 * @param {number} endX X-coordinate of the ending point in inches
-	 * @param {number} endY Y-coordinate of the ending point in inches
-	 * @param {number} width Width of the line stroke in points
-	 * @param {string} [capStyle="butt"] The style for the end of the line ("butt", "square", "round")
-	 */
 	drawLine: function(startX, startY, endX, endY, width, capStyle) {
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -228,15 +138,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Draw an image with the specified dimensions
-	 *
-	 * @param {string} imagePath The file location of the image on the filesystem
-	 * @param {number} left X-coordinate of the upper-left corner of the image in inches
-	 * @param {number} top Y-coordinate of the upper-left corner of the image in inches
-	 * @param {number} width width of the image in inches
-	 * @param {number} height height of the image in inches
-	 */
 	drawImage: function(imagePath, left, top, width, height) {
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -247,17 +148,6 @@ var pgPDF = {
 		);
 	},
 
-	/**
-	 * Draw some text in a box of the specified dimensions
-	 *
-	 * @param {string} text - The text to draw
-	 * @param {number} left - x1
-	 * @param {number} top - y1
-	 * @param {number} width - x2
-	 * @param {number} height - y2
-	 * @param {boolean} [overflow=false] - Whether the text should overflow the box
-	 * @param {string} [alignment="left"] - "left", "center", "right", "justify"
-	 */
 	drawTextInBox: function(text, left, top, width, height, overflow, alignment) {
 		overflow = overflow || false;
 		alignment = alignment || "left";
@@ -367,7 +257,7 @@ pgPdfPage.prototype.setTextSize = function(pointSize) {
  * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
  * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
  * @param {number} width The width of the rect in inches
- * @param {number} width The height of the rect in inches
+ * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the rect in points
  * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
  * @param {string} [joinStyle="bevel"] The style of box corners ("bevel", "round", "miter")
@@ -382,7 +272,7 @@ pgPdfPage.prototype.drawRect = function(x1, y1, width, height, strokeWidth, fill
  * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
  * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
  * @param {number} width The width of the rect in inches
- * @param {number} width The height of the rect in inches
+ * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the rect in points
  * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
  */
@@ -402,7 +292,7 @@ pgPdfPage.prototype.drawRoundRect = function(x1, y1, width, height, radius, stro
  * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
  * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
  * @param {number} width The width of the rect in inches
- * @param {number} width The height of the rect in inches
+ * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the ellipse in points
  * @param {boolean} [filled=false] Whether to fill the ellipse (use setFillColor to set a color)
  */
