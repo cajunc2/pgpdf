@@ -235,6 +235,8 @@ pgPdfPage.prototype.setFillColor = function(red, green, blue, alpha) {
 /**
  * Changes the font used for text drawing
  *
+ * See [iosfonts.com]{@link http://iosfonts.com/} for a list of font names available on iOS
+ *
  * @param {string} fontName The name of the font to use
  */
 pgPdfPage.prototype.setTextFont = function(fontName) {
@@ -259,7 +261,7 @@ pgPdfPage.prototype.setTextSize = function(pointSize) {
  * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the rect in points
  * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
- * @param {string} [joinStyle="bevel"] The style of box corners ("bevel", "round", "miter")
+ * @param {string} [joinStyle="miter"] The style of box corners ("miter", "bevel", "round")
  */
 pgPdfPage.prototype.drawRect = function(x1, y1, width, height, strokeWidth, filled, joinStyle) {
 	this.drawingElements.push({ drawFunc: "drawRect", params: [ x1, y1, width, height, strokeWidth, filled, joinStyle ] });

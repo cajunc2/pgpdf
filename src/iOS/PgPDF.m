@@ -172,10 +172,10 @@ UIFont *currentFont = nil;
     bool  isFilled  = [[command.arguments objectAtIndex:5] boolValue];
     NSString* cornerStyleString = [command.arguments objectAtIndex:6];
     
-    enum CGLineJoin cornerStyle = kCGLineJoinBevel;
+    enum CGLineJoin cornerStyle = kCGLineJoinMiter;
     if(cornerStyleString != (id)[NSNull null]) {
+        if([cornerStyleString isEqualToString:@"bevel"]) { cornerStyle = kCGLineJoinRound; }
         if([cornerStyleString isEqualToString:@"round"]) { cornerStyle = kCGLineJoinRound; }
-        if([cornerStyleString isEqualToString:@"miter"]) { cornerStyle = kCGLineJoinMiter; }
     }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
