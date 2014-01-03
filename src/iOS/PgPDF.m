@@ -56,10 +56,10 @@ UIFont *currentFont = nil;
     int green   = [[command.arguments objectAtIndex:1] intValue];
     int blue    = [[command.arguments objectAtIndex:2] intValue];
     float alpha = [[command.arguments objectAtIndex:3] floatValue];
-    
-    float redNorm = red / 255.0;
-    float greenNorm = green / 255.0;
-    float blueNorm = blue / 255.0;
+
+    float redNorm = [self normalizeColorComponent:red];
+    float greenNorm = [self normalizeColorComponent:green];
+    float blueNorm = [self normalizeColorComponent:blue];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
@@ -71,6 +71,13 @@ UIFont *currentFont = nil;
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (float) normalizeColorComponent:(int) colorComponent
+{
+    if(colorComponent < 0) { return 0; }
+    if(colorComponent > 255) { return 1; }
+    return colorComponent / 255.f;
 }
 
 - (void) setFillColor:(CDVInvokedUrlCommand*) command

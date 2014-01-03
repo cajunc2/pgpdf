@@ -20,6 +20,9 @@
 var pgPDF = {
 
 	createDocument: function(fileLocation) {
+		if(fileLocation === undefined) {
+			throw new Error("createDocument: PDF File location was not provided");
+		}
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -54,6 +57,10 @@ var pgPDF = {
 	setStrokeColor: function(red, green, blue, alpha) {
 		alpha = alpha || 1;
 
+		if(red === undefined || green === undefined || blue === undefined) {
+			throw new Error("setStrokeColor: Three color components (red, green, blue) not provided");
+		}
+
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -66,6 +73,10 @@ var pgPDF = {
 	setFillColor: function(red, green, blue, alpha) {
 		alpha = alpha || 1;
 		
+		if(red === undefined || green === undefined || blue === undefined) {
+			throw new Error("setFillColor: Three color components (red, green, blue) not provided");
+		}
+
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -76,6 +87,11 @@ var pgPDF = {
 	},
 
 	setTextFont: function(fontName) {
+
+		if(fontName === undefined) {
+			throw new Error("setTextFont: Font name not provided");
+		}
+
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -86,6 +102,11 @@ var pgPDF = {
 	},
 
 	setTextSize: function(pointSize) {
+
+		if(pointSize === undefined) {
+			throw new Error("setTextSize: Font size not provided");
+		}
+
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -95,40 +116,92 @@ var pgPDF = {
 		);
 	},
 
-	drawRect: function(x1, y1, width, height, strokeWidth, filled, joinStyle) {
+	drawRect: function(left, top, width, height, strokeWidth, filled, joinStyle) {
+		if(left === undefined || top === undefined) {
+			throw new Error("drawRect: Position coordinates not provided");
+		}
+
+		if(width === undefined || height === undefined) {
+			throw new Error("drawRect: Width and/or height not provided");
+		}
+
+		if(strokeWidth === undefined) {
+			throw new Error("drawRect: Stroke width not provided");
+		}
+
 		filled = !!filled; // sets to false if not specified
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
 			"PgPDF",
 			"drawRect",
-			[ x1, y1, width, height, strokeWidth, filled, joinStyle ]
+			[ left, top, width, height, strokeWidth, filled, joinStyle ]
 		);
 	},
 
-	drawRoundRect: function(x1, y1, width, height, radius, strokeWidth, filled) {
+	drawRoundRect: function(left, top, width, height, radius, strokeWidth, filled) {
+		if(left === undefined || top === undefined) {
+			throw new Error("drawRoundRect: Position coordinates not provided");
+		}
+
+		if(width === undefined || height === undefined) {
+			throw new Error("drawRoundRect: Width and/or height not provided");
+		}
+
+		if(radius === undefined) {
+			throw new Error("drawRoundRect: Corner radius not provided");
+		}
+
+		if(strokeWidth === undefined) {
+			throw new Error("drawRoundRect: Stroke width not provided");
+		}
+
 		filled = !!filled; // sets to false if not specified
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
 			"PgPDF",
 			"drawRoundRect",
-			[ x1, y1, width, height, radius, strokeWidth, filled ]
+			[ left, top, width, height, radius, strokeWidth, filled ]
 		);
 	},
 
-	drawEllipseInRect: function(x1, y1, width, height, strokeWidth, filled) {
+	drawEllipseInRect: function(left, top, width, height, strokeWidth, filled) {
+		if(left === undefined || top === undefined) {
+			throw new Error("drawEllipseInRect: Position coordinates not provided");
+		}
+
+		if(width === undefined || height === undefined) {
+			throw new Error("drawEllipseInRect: Width and/or height not provided");
+		}
+
+		if(strokeWidth === undefined) {
+			throw new Error("drawEllipseInRect: Stroke width not provided");
+		}
+
 		filled = !!filled; // sets to false if not specified
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
 			"PgPDF",
 			"drawEllipseInRect",
-			[ x1, y1, width, height, strokeWidth, filled ]
+			[ left, top, width, height, strokeWidth, filled ]
 		);
 	},
 
 	drawLine: function(startX, startY, endX, endY, width, capStyle) {
+		if(startX === undefined || startY === undefined) {
+			throw new Error("drawLine: Starting coordinates not provided");
+		}
+
+		if(endX === undefined || endY === undefined) {
+			throw new Error("drawLine: Ending coordinates not provided");
+		}
+
+		if(width === undefined) {
+			throw new Error("drawLine: Line width not provided");
+		}
+
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -139,6 +212,17 @@ var pgPDF = {
 	},
 
 	drawImage: function(imagePath, left, top, width, height) {
+		if(imagePath === undefined) {
+			throw new Error("drawImage: Image file path not provided");
+		}
+		if(left === undefined || top === undefined) {
+			throw new Error("drawImage: Position coordinates not provided");
+		}
+
+		if(width === undefined || height === undefined) {
+			throw new Error("drawImage: Width and/or height not provided");
+		}
+
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
@@ -149,6 +233,15 @@ var pgPDF = {
 	},
 
 	drawTextInBox: function(text, left, top, width, height, alignment) {
+		if(left === undefined || top === undefined) {
+			throw new Error("drawTextInBox: Position coordinates not provided");
+		}
+
+		if(width === undefined || height === undefined) {
+			throw new Error("drawTextInBox: Width and/or height not provided");
+		}
+
+		text = text || "";
 		alignment = alignment || "left";
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
@@ -217,6 +310,10 @@ pgPdfDocument.prototype.save = function(fileLocation) {
  * @param {number} [alpha=1] The opacity (alpha channel) of the color (0.0-1.0)
  */
 pgPdfPage.prototype.setStrokeColor = function(red, green, blue, alpha) {
+	if(red === undefined || green === undefined || blue === undefined) {
+		throw new Error("setStrokeColor: Three color components (red, green, blue) not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "setStrokeColor", params: [ red, green, blue, alpha ] });
 };
 
@@ -229,6 +326,10 @@ pgPdfPage.prototype.setStrokeColor = function(red, green, blue, alpha) {
  * @param {number} [alpha=1] The opacity (alpha channel) of the color (0.0-1.0)
  */
 pgPdfPage.prototype.setFillColor = function(red, green, blue, alpha) {
+	if(red === undefined || green === undefined || blue === undefined) {
+		throw new Error("setFillColor: Three color components (red, green, blue) not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "setFillColor", params: [ red, green, blue, alpha ] });
 };
 
@@ -240,6 +341,10 @@ pgPdfPage.prototype.setFillColor = function(red, green, blue, alpha) {
  * @param {string} fontName The name of the font to use
  */
 pgPdfPage.prototype.setTextFont = function(fontName) {
+	if(fontName === undefined) {
+		throw new Error("setTextFont: Font name not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "setTextFont", params: [ fontName ] });
 };
 
@@ -249,36 +354,68 @@ pgPdfPage.prototype.setTextFont = function(fontName) {
  * @param {number} pointSize The size of the font to use (in points)
  */
 pgPdfPage.prototype.setTextSize = function(pointSize) {
+	if(pointSize === undefined) {
+		throw new Error("setTextSize: Font size not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "setTextSize", params: [ pointSize ] });
 };
 
 /**
  * Draw a rectangle with optional fill and varied join styles supported
  *
- * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
- * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
+ * @param {number} left The x-coordinate of the upper-left corner of the rect in inches
+ * @param {number} top The y-coordinate of the upper-left corner of the rect in inches
  * @param {number} width The width of the rect in inches
  * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the rect in points
  * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
  * @param {string} [joinStyle="miter"] The style of box corners ("miter", "bevel", "round")
  */
-pgPdfPage.prototype.drawRect = function(x1, y1, width, height, strokeWidth, filled, joinStyle) {
-	this.drawingElements.push({ drawFunc: "drawRect", params: [ x1, y1, width, height, strokeWidth, filled, joinStyle ] });
+pgPdfPage.prototype.drawRect = function(left, top, width, height, strokeWidth, filled, joinStyle) {
+	if(left === undefined || top === undefined) {
+		throw new Error("drawRect: Position coordinates not provided");
+	}
+
+	if(width === undefined || height === undefined) {
+		throw new Error("drawRect: Width and/or height not provided");
+	}
+
+	if(strokeWidth === undefined) {
+		throw new Error("drawRect: Stroke width not provided");
+	}
+
+	this.drawingElements.push({ drawFunc: "drawRect", params: [ left, top, width, height, strokeWidth, filled, joinStyle ] });
 };
 
 /**
  * Draw a rectangle with rounded corners and optional fill
  *
- * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
- * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
+ * @param {number} left The x-coordinate of the upper-left corner of the rect in inches
+ * @param {number} top The y-coordinate of the upper-left corner of the rect in inches
  * @param {number} width The width of the rect in inches
  * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the rect in points
  * @param {boolean} [filled=false] Whether to fill the rectangle (use setFillColor to set a color)
  */
-pgPdfPage.prototype.drawRoundRect = function(x1, y1, width, height, radius, strokeWidth, filled) {
-	this.drawingElements.push({ drawFunc: "drawRoundRect", params: [ x1, y1, width, height, radius, strokeWidth, filled ] });
+pgPdfPage.prototype.drawRoundRect = function(left, top, width, height, radius, strokeWidth, filled) {
+	if(left === undefined || top === undefined) {
+		throw new Error("drawRoundRect: Position coordinates not provided");
+	}
+
+	if(width === undefined || height === undefined) {
+		throw new Error("drawRoundRect: Width and/or height not provided");
+	}
+
+	if(radius === undefined) {
+		throw new Error("drawRoundRect: Corner radius not provided");
+	}
+
+	if(strokeWidth === undefined) {
+		throw new Error("drawRoundRect: Stroke width not provided");
+	}
+
+	this.drawingElements.push({ drawFunc: "drawRoundRect", params: [ left, top, width, height, radius, strokeWidth, filled ] });
 };
 
 /**
@@ -290,15 +427,27 @@ pgPdfPage.prototype.drawRoundRect = function(x1, y1, width, height, radius, stro
  * This method should be replaced by a method to draw an ellispe at any angle
  * in the future
  *
- * @param {number} x1 The x-coordinate of the upper-left corner of the rect in inches
- * @param {number} y1 The y-coordinate of the upper-left corner of the rect in inches
+ * @param {number} left The x-coordinate of the upper-left corner of the rect in inches
+ * @param {number} top The y-coordinate of the upper-left corner of the rect in inches
  * @param {number} width The width of the rect in inches
  * @param {number} height The height of the rect in inches
  * @param {number} strokeWidth The width of the line stroke around the ellipse in points
  * @param {boolean} [filled=false] Whether to fill the ellipse (use setFillColor to set a color)
  */
-pgPdfPage.prototype.drawEllipseInRect = function(x1, y1, width, height, strokeWidth, filled) {
-	this.drawingElements.push({ drawFunc: "drawEllipseInRect", params: [ x1, y1, width, height, strokeWidth, filled ] });
+pgPdfPage.prototype.drawEllipseInRect = function(left, top, width, height, strokeWidth, filled) {
+	if(left === undefined || top === undefined) {
+		throw new Error("drawEllipseInRect: Position coordinates not provided");
+	}
+
+	if(width === undefined || height === undefined) {
+		throw new Error("drawEllipseInRect: Width and/or height not provided");
+	}
+
+	if(strokeWidth === undefined) {
+		throw new Error("drawEllipseInRect: Stroke width not provided");
+	}
+
+	this.drawingElements.push({ drawFunc: "drawEllipseInRect", params: [ left, top, width, height, strokeWidth, filled ] });
 };
 
 /**
@@ -312,6 +461,18 @@ pgPdfPage.prototype.drawEllipseInRect = function(x1, y1, width, height, strokeWi
  * @param {string} [capStyle="butt"] The style for the end of the line ("butt", "square", "round")
  */
 pgPdfPage.prototype.drawLine = function(startX, startY, endX, endY, width, capStyle) {
+	if(startX === undefined || startY === undefined) {
+		throw new Error("drawLine: Starting coordinates not provided");
+	}
+
+	if(endX === undefined || endY === undefined) {
+		throw new Error("drawLine: Ending coordinates not provided");
+	}
+
+	if(width === undefined) {
+		throw new Error("drawLine: Line width not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "drawLine", params: [ startX, startY, endX, endY, width, capStyle ] });
 };
 
@@ -325,6 +486,17 @@ pgPdfPage.prototype.drawLine = function(startX, startY, endX, endY, width, capSt
  * @param {number} height height of the image in inches
  */
 pgPdfPage.prototype.drawImage = function(imagePath, left, top, width, height) {
+	if(imagePath === undefined) {
+		throw new Error("drawImage: Image file path not provided");
+	}
+	if(left === undefined || top === undefined) {
+		throw new Error("drawImage: Position coordinates not provided");
+	}
+
+	if(width === undefined || height === undefined) {
+		throw new Error("drawImage: Width and/or height not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "drawImage", params: [ imagePath, left, top, width, height ] });
 };
 
@@ -339,5 +511,13 @@ pgPdfPage.prototype.drawImage = function(imagePath, left, top, width, height) {
  * @param {string} [alignment="left"] - "left", "center", "right"
  */
 pgPdfPage.prototype.drawTextInBox = function(text, left, top, width, height, alignment) {
+	if(left === undefined || top === undefined) {
+		throw new Error("drawTextInBox: Position coordinates not provided");
+	}
+
+	if(width === undefined || height === undefined) {
+		throw new Error("drawTextInBox: Width and/or height not provided");
+	}
+
 	this.drawingElements.push({ drawFunc: "drawTextInBox", params: [ text, left, top, width, height, alignment ] });
 };
