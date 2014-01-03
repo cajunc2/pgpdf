@@ -148,15 +148,14 @@ var pgPDF = {
 		);
 	},
 
-	drawTextInBox: function(text, left, top, width, height, overflow, alignment) {
-		overflow = overflow || false;
+	drawTextInBox: function(text, left, top, width, height, alignment) {
 		alignment = alignment || "left";
 		cordova.exec(
 			function(retVal) { console.log(retVal); },
 			function(err) { console.log(err); },
 			"PgPDF",
 			"drawTextInBox",
-			[ text, left, top, width, height, overflow, alignment ]
+			[ text, left, top, width, height, alignment ]
 		);
 	}
 };
@@ -335,9 +334,8 @@ pgPdfPage.prototype.drawImage = function(imagePath, left, top, width, height) {
  * @param {number} top  y1
  * @param {number} width  x2
  * @param {number} height y2
- * @param {boolean} [overflow=false] Whether the text should overflow the box
- * @param {string} [alignment="left"] - "left", "center", "right", "justify"
+ * @param {string} [alignment="left"] - "left", "center", "right"
  */
-pgPdfPage.prototype.drawTextInBox = function(text, left, top, width, height, overflow, alignment) {
-	this.drawingElements.push({ drawFunc: "drawTextInBox", params: [ text, left, top, width, height, overflow, alignment ] });
+pgPdfPage.prototype.drawTextInBox = function(text, left, top, width, height, alignment) {
+	this.drawingElements.push({ drawFunc: "drawTextInBox", params: [ text, left, top, width, height, alignment ] });
 };

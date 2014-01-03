@@ -123,21 +123,17 @@ UIFont *currentFont = nil;
     float top  = [[command.arguments objectAtIndex:2] floatValue] * dpi;
     float width  = [[command.arguments objectAtIndex:3] floatValue] * dpi;
     float height = [[command.arguments objectAtIndex:4] floatValue] * dpi;
-    bool overflowBox = [[command.arguments objectAtIndex:5] boolValue];
-    NSString* alignment = [command.arguments objectAtIndex:6];
+    NSString* alignment = [command.arguments objectAtIndex:5];
     
-    enum NSLineBreakMode lineBreakMode = (overflowBox) ? NSLineBreakByWordWrapping : NSLineBreakByClipping;
-
     enum NSTextAlignment textAlign = NSTextAlignmentLeft;
-    if([alignment isEqualToString:@"center"]) { textAlign = NSTextAlignmentCenter; }
-    if([alignment isEqualToString:@"right"]) { textAlign = NSTextAlignmentRight; }
-    if([alignment isEqualToString:@"justify"]) { textAlign = NSTextAlignmentJustified; }
+    if(alignment != (id)[NSNull null]) {
+        if([alignment isEqualToString:@"center"]) { textAlign = NSTextAlignmentCenter; }
+        if([alignment isEqualToString:@"right"]) { textAlign = NSTextAlignmentRight; }
+    }
     
-    CGSize maxSize = CGSizeMake(width, height);
-    CGSize pageStringSize = [text sizeWithFont:currentFont constrainedToSize:maxSize lineBreakMode:lineBreakMode];
-    CGRect stringRect = CGRectMake(left, top, pageStringSize.width, pageStringSize.height);
+    CGRect stringRect = CGRectMake(left, top, width, height);
     
-    [text drawInRect:stringRect withFont:currentFont lineBreakMode:lineBreakMode alignment:textAlign];
+    [text drawInRect:stringRect withFont:currentFont lineBreakMode:NSLineBreakByTruncatingTail alignment:textAlign];
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -153,9 +149,11 @@ UIFont *currentFont = nil;
     NSString* capStyleString = [command.arguments objectAtIndex:5];
     
     enum CGLineCap capStyle = kCGLineCapButt;
-    if([capStyleString isEqualToString:@"round"]) { capStyle = kCGLineCapRound; }
-    if([capStyleString isEqualToString:@"square"]) { capStyle = kCGLineCapSquare; }
-    
+    if(capStyleString != (id)[NSNull null]) {
+        if([capStyleString isEqualToString:@"round"]) { capStyle = kCGLineCapRound; }
+        if([capStyleString isEqualToString:@"square"]) { capStyle = kCGLineCapSquare; }
+    }
+
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineCap(context, capStyle);
     CGContextSetLineWidth(context, width);
@@ -175,8 +173,10 @@ UIFont *currentFont = nil;
     NSString* cornerStyleString = [command.arguments objectAtIndex:6];
     
     enum CGLineJoin cornerStyle = kCGLineJoinBevel;
-    if([cornerStyleString isEqualToString:@"round"]) { cornerStyle = kCGLineJoinRound; }
-    if([cornerStyleString isEqualToString:@"miter"]) { cornerStyle = kCGLineJoinMiter; }
+    if(cornerStyleString != (id)[NSNull null]) {
+        if([cornerStyleString isEqualToString:@"round"]) { cornerStyle = kCGLineJoinRound; }
+        if([cornerStyleString isEqualToString:@"miter"]) { cornerStyle = kCGLineJoinMiter; }
+    }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, lineWidth);
