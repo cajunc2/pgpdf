@@ -37,7 +37,7 @@ var doc = new pgPdfDocument();
 var page1 = doc.addPage();
 
 // Draw an image and some text under it
-page1.drawImage("/Users/cajuncc/Desktop/jpegfile.jpg", 1, 1, 6, 4);
+page1.drawImage("jpegfile.jpg", 1, 1, 6, 4);
 page1.setFillColor(0, 255, 0);
 page1.setTextFont("Baskerville");
 page1.setTextSize(12);
@@ -65,7 +65,7 @@ page2.setStrokeColor(128, 255, 0);
 page2.drawEllipseInRect(5.5, 1, 2, 3, 1, true);
 
 // This shows how you can go back and alter previous pages
-page1.drawImage("/Users/cajuncc/Desktop/pngfile.png", 3.5, 6, 4, 4);
+page1.drawImage("pngfile.png", 3.5, 6, 4, 4);
 page1.setFillColor(0, 0, 255);
 page1.setTextFont("SnellRoundhand-Bold");
 page1.setTextSize(36);
